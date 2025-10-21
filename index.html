@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Draaiboek Terugkomdag Stage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Tailwind's gray-50 */
+        }
+        .level-card {
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+        .level-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .modal-backdrop {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 50;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            z-index: 100;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        .modal-backdrop.active, .modal-content.active {
+            display: block;
+            opacity: 1;
+        }
+         .modal-content.active {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .level-card.active {
+             border-color: #3b82f6; /* Tailwind's blue-500 */
+             box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <div class="container mx-auto p-6 md:p-12">
+        <!-- Header -->
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-gray-900">Terugkomdag Stage</h1>
+            <p class="mt-4 text-lg text-gray-600 max-w-3xl mx-auto">Van Probleem naar Actie: Een interactieve sessie gebaseerd op de A3-Methodiek</p>
+        </header>
+
+        <!-- Timeline / Levels -->
+        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Level 0 -->
+            <div id="card-0" class="level-card bg-white p-6 rounded-xl border border-gray-200 cursor-pointer" data-modal="0">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">Level 0</span>
+                    <span class="text-gray-500 text-sm font-medium">15 min</span>
+                </div>
+                <h2 class="text-xl font-bold mt-4">De Check-in</h2>
+                <p class="text-gray-600 mt-2">Welkom & ervaringen delen om de context te bepalen en met elkaar te verbinden.</p>
+            </div>
+
+            <!-- Level 1 -->
+            <div id="card-1" class="level-card bg-white p-6 rounded-xl border border-gray-200 cursor-pointer" data-modal="1">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">Level 1</span>
+                    <span class="text-gray-500 text-sm font-medium">25 min</span>
+                </div>
+                <h2 class="text-xl font-bold mt-4">Probleem Definiëren</h2>
+                <p class="text-gray-600 mt-2">Een scherp en relevant stageprobleem afbakenen en herkenning vinden bij je peers.</p>
+            </div>
+
+            <!-- Level 2 -->
+            <div id="card-2" class="level-card bg-white p-6 rounded-xl border border-gray-200 cursor-pointer" data-modal="2">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">Level 2</span>
+                    <span class="text-gray-500 text-sm font-medium">30 min</span>
+                </div>
+                <h2 class="text-xl font-bold mt-4">Oorzaak Opsporen</h2>
+                <p class="text-gray-600 mt-2">Systematisch op zoek naar dieperliggende oorzaken met behulp van peer-validatie.</p>
+            </div>
+            
+            <!-- Pauze -->
+            <div id="card-break" class="level-card bg-white p-6 rounded-xl border-2 border-dashed border-gray-300 flex items-center justify-center flex-col" data-modal="break">
+                 <i data-lucide="coffee" class="text-gray-400"></i>
+                <h2 class="text-xl font-bold mt-4 text-gray-500">Pauze</h2>
+                <p class="text-gray-500 text-sm font-medium">10 min</p>
+            </div>
+
+            <!-- Level 3 -->
+            <div id="card-3" class="level-card bg-white p-6 rounded-xl border border-gray-200 cursor-pointer" data-modal="3">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">Level 3</span>
+                    <span class="text-gray-500 text-sm font-medium">30 min</span>
+                </div>
+                <h2 class="text-xl font-bold mt-4">Oplossingen Carrousel</h2>
+                <p class="text-gray-600 mt-2">Brainstormen met de rol van "Externe Expert" om ervaring en externe kennis te mixen.</p>
+            </div>
+
+            <!-- Level 4 -->
+            <div id="card-4" class="level-card bg-white p-6 rounded-xl border border-gray-200 cursor-pointer" data-modal="4">
+                <div class="flex items-center justify-between">
+                    <span class="text-sm font-semibold text-blue-600 bg-blue-100 px-3 py-1 rounded-full">Level 4</span>
+                    <span class="text-gray-500 text-sm font-medium">10 min</span>
+                </div>
+                <h2 class="text-xl font-bold mt-4">De Volgende Stap</h2>
+                <p class="text-gray-600 mt-2">Jouw inzichten omzetten in een concreet en haalbaar experiment voor je stage.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals container -->
+    <div id="modal-backdrop" class="modal-backdrop"></div>
+
+    <!-- Modal Level 0 -->
+    <div id="modal-0" class="modal-content w-11/12 max-w-3xl bg-white rounded-xl shadow-2xl p-8">
+        <h2 class="text-2xl font-bold mb-4">Level 0: De Check-in (15 min)</h2>
+        <h3 class="font-semibold text-lg mb-2 text-blue-700">Doel:</h3>
+        <p class="mb-6">Een veilige sfeer creëren en de sessie direct koppelen aan de actuele stage-ervaringen van de studenten.</p>
+        <h3 class="font-semibold text-lg mb-2 text-blue-700">Activiteit: 'Aha & Uh-oh' Ronde</h3>
+        <p class="mb-2">Denk terug aan de afgelopen weken op je stage:</p>
+        <ul class="list-disc list-inside space-y-2 text-gray-700">
+            <li>Wat was een typisch <strong class="font-semibold">'Aha!'-moment</strong> (een inzicht, iets dat lukte)?</li>
+            <li>Wat was een <strong class="font-semibold">'Uh-oh'-moment</strong> (een uitdaging, iets wat lastig was)?</li>
+        </ul>
+        <button class="modal-close-btn absolute top-4 right-4 text-gray-500 hover:text-gray-800"><i data-lucide="x"></i></button>
+    </div>
+
+    <!-- Modal Level 1 -->
+    <div id="modal-1" class="modal-content w-11/12 max-w-3xl bg-white rounded-xl shadow-2xl p-8">
+        <h2 class="text-2xl font-bold mb-4">Level 1: Probleem Definiëren (25 min)</h2>
+        <h3 class="font-semibold text-lg mb-2 text-blue-700">Doel:</h3>
+        <p class="mb-6">Selecteer één relevant probleem, formuleer dit helder en ontdek overeenkomsten met medestudenten.</p>
+        
+        <div class="grid md:grid-cols-2 gap-6">
+            <div>
+                <h3 class="font-semibold text-lg mb-2 text-blue-700">Stap 1: Individueel Werk</h3>
+                <p class="mb-2">Vul op je canvas de eerste twee vakken in:</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li><strong>Vak 1 (Problem):</strong> Wat gebeurde er feitelijk? Maak het specifiek!</li>
+                    <li><strong>Vak 2 (Goal):</strong> Wat is de ideale situatie? Wat zou er moeten gebeuren?</li>
+                </ul>
+                <p class="mt-4 text-sm italic text-gray-500">Trigger: Is je probleem een gevoel of een feit? Voor wie is het een probleem?</p>
+            </div>
+            <div>
+                <h3 class="font-semibold text-lg mb-2 text-blue-700">Stap 2: Groepsdeling "Herkenbaar?"</h3>
+                 <p class="mb-2">Vorm groepjes van 3-4. Lees om de beurt je probleem en doel voor.</p>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li>De rest luistert en geeft alleen aan of het herkenbaar is in hun eigen stagecontext.</li>
+                    <li>Het doel is niet oplossen, maar herkenning vinden.</li>
+                </ul>
+            </div>
+        </div>
+        <button class="modal-close-btn absolute top-4 right-4 text-gray-500 hover:text-gray-800"><i data-lucide="x"></i></button>
+    </div>
+
+    <!-- Modal Level 2 -->
+    <div id="modal-2" class="modal-content w-11/12 max-w-3xl bg-white rounded-xl shadow-2xl p-8">
+        <h2 class="text-2xl font-bold mb-4">Level 2: Oorzaak Opsporen (30 min)</h2>
+        <h3 class="font-semibold text-lg mb-2 text-blue-700">Doel:</h3>
+        <p class="mb-6">Je onderzoekend vermogen trainen door systematisch op zoek te gaan naar dieperliggende (root) causes.</p>
+
+        <h3 class="font-semibold text-lg mb-2 text-blue-700">Activiteit: Peer-Validatie in Duo's</h3>
+        <p class="mb-4">Na de individuele analyse met het visgraatdiagram, zoek je een partner.</p>
+        <ul class="list-disc list-inside space-y-3 text-gray-700">
+            <li>Presenteer in 5 minuten jouw probleem en visgraatdiagram.</li>
+            <li>De luisteraar stelt verdiepende vragen om de analyse scherper te krijgen.</li>
+        </ul>
+        <p class="mt-4 font-semibold">Voorbeeldvragen voor de luisteraar:</p>
+        <ul class="list-disc list-inside text-sm text-gray-600 mt-2 space-y-1">
+            <li>Hoe weet je dat dit een oorzaak is? Is dat een aanname?</li>
+            <li>Hoe is dit in mijn stagebedrijf anders/hetzelfde? Zou deze oorzaak bij ons ook kunnen spelen?</li>
+            <li>Wie zou je in jouw organisatie kunnen bevragen om deze aanname te valideren?</li>
+        </ul>
+        <button class="modal-close-btn absolute top-4 right-4 text-gray-500 hover:text-gray-800"><i data-lucide="x"></i></button>
+    </div>
+
+    <!-- Modal Level 3 -->
+    <div id="modal-3" class="modal-content w-11/12 max-w-3xl bg-white rounded-xl shadow-2xl p-8">
+        <h2 class="text-2xl font-bold mb-4">Level 3: Oplossingen Carrousel (30 min)</h2>
+        <h3 class="font-semibold text-lg mb-2 text-blue-700">Doel:</h3>
+        <p class="mb-6">Creatieve en diverse oplossingen genereren door de verschillende stage-ervaringen en externe kennis in de groep actief te benutten.</p>
+        <h3 class="font-semibold text-lg mb-2 text-blue-700">Activiteit: Brainstorm met "Externe Expert"</h3>
+        <ol class="list-decimal list-inside space-y-2 text-gray-700">
+            <li>Eén groepslid is de **"Externe Expert"** (deze rol roteert).</li>
+            <li>Student 1 pitcht zijn/haar probleem en oorzaak (2 min).</li>
+            <li>De rest brainstormt oplossingen. De "Externe Expert" zoekt tegelijkertijd online naar een relevant model, best practice of video.</li>
+            <li>Na 3-4 min deelt de "Externe Expert" zijn/haar vondst.</li>
+            <li>De groep gebruikt deze input voor de laatste minuten van de brainstorm.</li>
+            <li>Draai door tot iedereen aan de beurt is geweest.</li>
+        </ol>
+        <button class="modal-close-btn absolute top-4 right-4 text-gray-500 hover:text-gray-800"><i data-lucide="x"></i></button>
+    </div>
+
+    <!-- Modal Level 4 -->
+    <div id="modal-4" class="modal-content w-11/12 max-w-3xl bg-white rounded-xl shadow-2xl p-8">
+        <h2 class="text-2xl font-bold mb-4">Level 4: De Volgende Stap (10 min)</h2>
+        <h3 class="font-semibold text-lg mb-2 text-blue-700">Doel:</h3>
+        <p class="mb-6">De sessie afronden met een concreet, persoonlijk en haalbaar actiepunt dat direct in de stage kan worden toegepast.</p>
+        <h3 class="font-semibold text-lg mb-2 text-blue-700">Activiteit: Formuleer je Experiment</h3>
+        <ul class="list-disc list-inside space-y-2 text-gray-700">
+            <li>Kies één veelbelovende oplossing uit de brainstorm.</li>
+            <li>Bedenk de **allerkleinst mogelijke stap** die je volgende week kunt zetten om deze oplossing te testen.</li>
+            <li>Vul vak 5 (Check) van je A3-canvas in: Hoe ga je meten of je kleine experiment succesvol was? Wat hoop je te zien, horen of meten?</li>
+        </ul>
+        <div class="mt-4 p-4 bg-blue-50 rounded-lg">
+            <p class="font-semibold text-blue-800">Voorbeeld Experiment:</p>
+            <p class="text-sm text-blue-700 mt-1">"Mijn probleem is dat collega's te laat op meetings komen. Oorzaak: onduidelijke agenda. Mijn experiment is: Voor de volgende teammeeting zet ik het te nemen besluit als eerste agendapunt en vraag ik achteraf aan 2 collega's of dit hen hielp om beter voorbereid te zijn."</p>
+        </div>
+        <button class="modal-close-btn absolute top-4 right-4 text-gray-500 hover:text-gray-800"><i data-lucide="x"></i></button>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const levelCards = document.querySelectorAll('.level-card');
+        const modalBackdrop = document.getElementById('modal-backdrop');
+        let activeModal = null;
+        let activeCard = null;
+
+        function openModal(modalId) {
+            // Close any currently active modal
+            if (activeModal) {
+                closeModal();
+            }
+
+            const modal = document.getElementById(`modal-${modalId}`);
+            const card = document.getElementById(`card-${modalId}`);
+
+            if (modal) {
+                modalBackdrop.classList.add('active');
+                modal.classList.add('active');
+                activeModal = modal;
+            }
+             if (card) {
+                // Remove active state from all cards
+                levelCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                activeCard = card;
+            }
+        }
+
+        function closeModal() {
+            if (activeModal) {
+                modalBackdrop.classList.remove('active');
+                activeModal.classList.remove('active');
+                activeModal = null;
+            }
+            if(activeCard) {
+                 activeCard.classList.remove('active');
+                 activeCard = null;
+            }
+        }
+
+        levelCards.forEach(card => {
+            // Pauze card does not open a modal, it's just visual
+            if (card.id === 'card-break') return;
+
+            card.addEventListener('click', () => {
+                const modalId = card.dataset.modal;
+                openModal(modalId);
+            });
+        });
+
+        modalBackdrop.addEventListener('click', closeModal);
+        document.querySelectorAll('.modal-close-btn').forEach(btn => {
+            btn.addEventListener('click', closeModal);
+        });
+
+        // Keyboard support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && activeModal) {
+                closeModal();
+            }
+        });
+    </script>
+
+</body>
+</html>
